@@ -3,7 +3,6 @@ import { json, urlencoded } from 'express'
 import compression from 'compression'
 import { requestIdMiddleware } from './request-id.js'
 
-
 export const configureMiddleware = app => {
   app.use(cors())
   app.use(json())

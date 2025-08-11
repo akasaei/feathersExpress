@@ -1,11 +1,7 @@
 // utils/filterSensitive.js
 import { loggingConfig } from './config-loader.js'
 
-const systemSensitiveFields = [
-  'password',
-  /^.*token$/i,
-  /^authorization$/i
-]
+const systemSensitiveFields = ['password', /^.*token$/i, /^authorization$/i]
 
 /**
  * merge configured sensitive fields with system default fields
@@ -32,7 +28,9 @@ export function getSensitiveFields() {
  */
 function maskValue(value) {
   if (typeof value === 'string') {
-    return value.length <= 4 ? '***' : value.slice(0, Math.floor(Math.log(value.length))) + '***' + value.slice(-1)
+    return value.length <= 4
+      ? '***'
+      : value.slice(0, Math.floor(Math.log(value.length))) + '***' + value.slice(-1)
   }
   return '***'
 }
@@ -55,7 +53,7 @@ function isSensitive(key, sensitiveFields = getSensitiveFields()) {
  */
 export function filterSensitive(obj, sensitiveFields = getSensitiveFields()) {
   if (Array.isArray(obj)) {
-    return obj.map(item => filterSensitive(item, sensitiveFields));
+    return obj.map(item => filterSensitive(item, sensitiveFields))
   }
 
   if (obj && typeof obj === 'object') {

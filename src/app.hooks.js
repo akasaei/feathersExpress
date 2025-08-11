@@ -3,7 +3,6 @@ import { logger } from './logger.js'
 import { prometheusHook } from './hooks/prometheus.js'
 import { sentryErrorHook } from './hooks/sentry-error.js'
 
-
 function levelSelector(context) {
   if (context.error) return 'error'
   if (context.method === 'find') return 'debug'
@@ -17,5 +16,5 @@ export const hooks = {
   },
   before: {},
   after: {},
-  error: {all: [sentryErrorHook]}
+  error: { all: [sentryErrorHook] }
 }
