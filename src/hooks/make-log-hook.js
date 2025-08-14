@@ -41,8 +41,14 @@ export function makeLogHook({ logger, extraSensitiveFields = [], levelSelector =
       user: context.params.user?.email || 'NA',
       ip
     }
+
+    const safequery = filterSensitive({
+      ...context.params.query,
+      queryId: context.id || "NA"
+    }, sensitiveFields)
+
     const metaEntry = {
-      query: context.id || context.params.query,
+      params: safequery,
       data: safeData,
       result: safeResult
     }

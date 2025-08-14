@@ -4,11 +4,11 @@ import 'winston-daily-rotate-file'
 
 const dailyRotateTransport = new transports.DailyRotateFile({
   filename: 'logs/application-%DATE%.log', // output pattern
-  datePattern: 'YYYY-MM-DD HH', // rotation frequency
+  datePattern: 'YYYY-MM-DD', // rotation frequency
   zippedArchive: true, // compress old logs
   maxSize: '20m', // max file size before rotate
   maxFiles: '14d', // keep logs for 14 days
-  level: 'info', // log level
+  level: 'debug', // log level
   format: format.combine(format.timestamp(), format.json())
 })
 // Configure the Winston logger. For the complete documentation see https://github.com/winstonjs/winston
