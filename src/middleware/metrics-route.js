@@ -1,4 +1,4 @@
-import { register } from '../metrics.js'
+import { register,requestCounter } from '../metrics.js'
 
 export const metricsMiddleware = (req, res) => {
   res.set('Content-Type', register.contentType)
@@ -6,3 +6,14 @@ export const metricsMiddleware = (req, res) => {
     res.end(metrics)
   })
 }
+
+export const requestMetricsMiddleware = (req, res, next) => {
+  res.on('finish', () => {
+    requestCounter.inc({
+      method: req.method,
+      path: req.originalUrl,
+      status: res.statusCode
+    });
+  });
+  next();
+};
