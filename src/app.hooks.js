@@ -2,6 +2,7 @@ import { makeLogHook } from './hooks/make-log-hook.js'
 import { logger } from './logger.js'
 import { prometheusHook } from './hooks/prometheus.js'
 import { sentryErrorHook } from './hooks/sentry-error.js'
+import { globalFieldsHook } from './hooks/global-fields.js';
 
 function levelSelector(context) {
   if (context.error) return 'error'
@@ -14,7 +15,7 @@ export const hooks = {
   around: {
     all: [prometheusHook, logHook]
   },
-  before: {},
+  before: {all:[globalFieldsHook]},
   after: {},
   error: { all: [sentryErrorHook] }
 }
